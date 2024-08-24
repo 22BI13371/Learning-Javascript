@@ -130,9 +130,3 @@ dist
 .pnp.*
 
 # random files
-prettierrc.json
-tsconfig.json
-package.json
-.prettierrc
-eslint.config.mjs
-package-lock.json
