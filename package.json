@@ -1,0 +1,25 @@
+{
+  "name": "test1",
+  "version": "1.0.0",
+  "description": "Learning javascript/typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "helloworld"
+  },
+  "author": "Imagination",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^10.6.0",
+    "save-dev": "^0.0.1-security",
+    "test1": "file:",
+    "typescript": "^5.5.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.6.0",
+    "chai": "^5.1.1",
+    "eslint": "^8.56.0",
+    "globals": "^15.8.0",
+    "sinon": "^18.0.0",
+    "typescript-eslint": "^7.15.0"
+  }
+}
