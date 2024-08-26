@@ -75,14 +75,24 @@ function spy(func) {
 
 function delay(f, ms) {
   function wrapper(...args) {
-    let timerId = setTimeout(function () {
-      return f.call(this, ...args);
+    let timerId = setTimeout(() => {
+      f.apply(this, args);
     }, ms);
   }
 
   return wrapper;
 }
 
+// let user = {
+//   name: 'name',
+
+//   sayHi: function (phrase) {
+//     console.log(phrase + ' ' + this.name);
+//   },
+// };
+
+// user.sayHi = delay(user.sayHi, 1500);
+// user.sayHi('hello');
 /* --------------------------------  */
 
 /* --------------------------------  */
