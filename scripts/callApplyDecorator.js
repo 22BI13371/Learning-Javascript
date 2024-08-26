@@ -33,7 +33,7 @@ function work(a, b) {
 function spy(func) {
   function wrapper(...args) {
     wrapper.calls.push(args);
-    let result = func.apply(this, arguments);
+    let result = func.apply(this, args);
 
     return result;
   }
@@ -43,16 +43,45 @@ function spy(func) {
   return wrapper;
 }
 
-work = spy(work);
+// work = spy(work);
 
-work(1, 2);
-work(2, 3);
+// work(1, 2);
+// work(2, 3);
 
-console.log(work.calls);
+// console.log(work.calls);
 // for (let args of work.calls) {
 //   console.log('call:' + args.join()); // "call:1,2", "call:4,5"
 // }
 /* --------------------------------  */
+
+// Create a decorator delay(f, ms) that delays each call of f by ms milliseconds.
+
+// For instance:
+
+// function f(x) {
+//   alert(x);
+// }
+
+// // create wrappers
+// let f1000 = delay(f, 1000);
+// let f1500 = delay(f, 1500);
+
+// f1000("test"); // shows "test" after 1000ms
+// f1500("test"); // shows "test" after 1500ms
+
+// In other words, delay(f, ms) returns a "delayed by ms" variant of f.
+
+// In the code above, f is a function of a single argument, but your solution should pass all arguments and the context this.
+
+function delay(f, ms) {
+  function wrapper(...args) {
+    let timerId = setTimeout(function () {
+      return f.call(this, ...args);
+    }, ms);
+  }
+
+  return wrapper;
+}
 
 /* --------------------------------  */
 
