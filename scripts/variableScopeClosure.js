@@ -1,4 +1,4 @@
-//
+// https://javascript.info/closure
 
 'use-strict';
 

@@ -31,16 +31,16 @@ function work(a, b) {
 }
 
 function spy(func) {
-  func.calls = [];
-
-  return function () {
-    let call = [...arguments];
+  function wrapper(...args) {
+    wrapper.calls.push(args);
     let result = func.apply(this, arguments);
 
-    func.calls.push(call);
-
     return result;
-  };
+  }
+
+  wrapper.calls = [];
+
+  return wrapper;
 }
 
 work = spy(work);
