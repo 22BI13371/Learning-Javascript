@@ -98,36 +98,47 @@ function delay(f, ms) {
 // https://javascript.info/call-apply-decorators#debounce-decorator
 
 // Solution
+// Works but long
 
-function debounce(f, ms) {
-  let savedTime = ms;
-  let timerId;
+// function debounce(f, ms) {
+//   let timerId;
 
-  function wrapper(...args) {
-    if (timerId) {
-      clearTimeout(timerId);
-      timerId = setTimeout(() => {
-        f.apply(this, args);
-      }, savedTime - ms);
-    }
+//   function wrapper(...args) {
+//     if (timerId) {
+//       clearTimeout(timerId);
+//       timerId = setTimeout(() => {
+//         f.apply(this, args);
+//       }, ms);
 
-    timerId = setTimeout(() => {
-      f.apply(this, args);
-    }, ms);
-  }
+//       return;
+//     }
 
-  return wrapper;
+//     timerId = setTimeout(() => {
+//       f.apply(this, args);
+//     }, ms);
+//   }
+
+//   return wrapper;
+// }
+
+// Shorter (Website's solution)
+function debounce(func, ms) {
+  let timeout;
+  return function () {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, arguments), ms);
+  };
 }
 
-function f(phrase) {
-  console.log(phrase);
-}
+// function f(phrase) {
+//   console.log(phrase);
+// }
 
-f = debounce(f, 5000);
+// f = debounce(f, 5000);
 
-f('a');
-setTimeout(() => f('b'), 1000);
-setTimeout(() => f('c'), 3000);
+// f('a');
+// setTimeout(() => f('b'), 1000);
+// setTimeout(() => f('c'), 3000);
 /* --------------------------------  */
 
 /* --------------------------------  */
