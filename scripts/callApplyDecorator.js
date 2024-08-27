@@ -76,7 +76,7 @@ function spy(func) {
 function delay(f, ms) {
   function wrapper(...args) {
     let timerId = setTimeout(() => {
-      f.apply(this, args);
+      return f.apply(this, args);
     }, ms);
   }
 
@@ -100,30 +100,34 @@ function delay(f, ms) {
 // Solution
 
 function debounce(f, ms) {
+  let savedTime = ms;
+  let timerId;
+
   function wrapper(...args) {
-    let timerId = setTimeout(() => {
+    if (timerId) {
+      clearTimeout(timerId);
+      timerId = setTimeout(() => {
+        f.apply(this, args);
+      }, savedTime - ms);
+    }
+
+    timerId = setTimeout(() => {
       f.apply(this, args);
     }, ms);
-
-    // if (timerId) {
-    //   clearTimeout(timerId);
-    //   let timerId = setTimeout(() => {
-    //     f.apply(this, args);
-    //   }, ms);
-    // } else {
-    //   return;
-    // }
   }
 
   return wrapper;
 }
 
-function work(a, b) {
-  return a + b;
+function f(phrase) {
+  console.log(phrase);
 }
 
-work = debounce(work);
-work(1, 2);
+f = debounce(f, 5000);
+
+f('a');
+setTimeout(() => f('b'), 1000);
+setTimeout(() => f('c'), 3000);
 /* --------------------------------  */
 
 /* --------------------------------  */
