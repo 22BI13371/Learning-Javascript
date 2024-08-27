@@ -94,7 +94,36 @@ function delay(f, ms) {
 // user.sayHi = delay(user.sayHi, 1500);
 // user.sayHi('hello');
 /* --------------------------------  */
+// Debounce decorator
+// https://javascript.info/call-apply-decorators#debounce-decorator
 
+// Solution
+
+function debounce(f, ms) {
+  function wrapper(...args) {
+    let timerId = setTimeout(() => {
+      f.apply(this, args);
+    }, ms);
+
+    // if (timerId) {
+    //   clearTimeout(timerId);
+    //   let timerId = setTimeout(() => {
+    //     f.apply(this, args);
+    //   }, ms);
+    // } else {
+    //   return;
+    // }
+  }
+
+  return wrapper;
+}
+
+function work(a, b) {
+  return a + b;
+}
+
+work = debounce(work);
+work(1, 2);
 /* --------------------------------  */
 
 /* --------------------------------  */
