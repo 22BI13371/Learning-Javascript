@@ -140,5 +140,55 @@ function debounce(func, ms) {
 // setTimeout(() => f('b'), 1000);
 // setTimeout(() => f('c'), 3000);
 /* --------------------------------  */
+// Throttle decorator
+// https://javascript.info/call-apply-decorators#throttle-decorator
 
+// function throttle(func, ms) {
+//   let timer = new Date().getTime();
+//   let internalTimerId;
+
+//   function wrapper() {}
+
+//   return wrapper;
+// }
+
+// function f(phrase) {
+//   console.log(phrase);
+// }
+
+// Website's solution
+function throttle(func, ms) {
+  let isThrottled = false,
+    savedArgs,
+    savedThis;
+
+  function wrapper() {
+    if (isThrottled) {
+      // (2)
+      savedArgs = arguments;
+      savedThis = this;
+      return;
+    }
+    isThrottled = true;
+
+    func.apply(this, arguments); // (1)
+
+    setTimeout(function () {
+      isThrottled = false; // (3)
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs);
+        savedArgs = savedThis = null;
+      }
+    }, ms);
+  }
+
+  return wrapper;
+}
+
+f = throttle(f, 1000);
+
+f('a');
+setTimeout(() => f('b'), 100);
+setTimeout(() => f('d'), 500);
+setTimeout(() => f('e'), 400);
 /* --------------------------------  */
